@@ -82,6 +82,10 @@ export default function StickyTableExample() {
         columnHeaders={DATES}
         rowHeaders={SPORTS}
         data={DATA}
+        cellWidth={70}
+        cellHeight={50}
+        headerWidth={90}
+        headerHeight={50}
         renderColumnHeader={(date) => (
           <Text style={exampleStyles.headerText}>{date}</Text>
         )}
@@ -91,17 +95,48 @@ export default function StickyTableExample() {
         renderCell={(value) => (
           <Text style={exampleStyles.cellText}>{value}</Text>
         )}
-        cellWidth={70}
-        cellHeight={50}
-        headerWidth={90}
-        headerHeight={50}
+        columnHeaderStyles={exampleStyles.columnHeaderCell}
+        rowHeaderStyles={exampleStyles.rowHeaderCell}
+        cellStyles={exampleStyles.cell}
+        cornerCellStyles={exampleStyles.cornerCell}
       />
     </View>
   );
 }
 
+const headerBackgroundColor = '#34495e';
+const headerBorderColor = '#2c3e50';
+
 const exampleStyles = StyleSheet.create({
-  container: { backgroundColor: '#fff', flex: 1 },
-  headerText: { color: '#fff', fontWeight: 'bold', fontSize: 13 },
-  cellText: { fontSize: 13, color: '#333' },
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+  },
+  headerText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 13,
+  },
+  cellText: {
+    fontSize: 13,
+    color: '#333',
+  },
+  columnHeaderCell: {
+    backgroundColor: headerBackgroundColor,
+    borderRightWidth: 1,
+    borderColor: headerBorderColor,
+  },
+  rowHeaderCell: {
+    backgroundColor: headerBackgroundColor,
+    borderBottomWidth: 1,
+    borderColor: headerBorderColor,
+  },
+  cell: {
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: '#bbb',
+  },
+  cornerCell: {
+    backgroundColor: headerBorderColor,
+  },
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, type ViewStyle, type StyleProp } from 'react-native';
 import Animated, {
   useSharedValue,
   useDerivedValue,
@@ -25,6 +25,10 @@ type StickyTableProps<TCell, TColumn, TRow> = {
     columnIndex: number
   ) => React.ReactNode;
   renderCorner?: () => React.ReactNode;
+  columnHeaderStyles?: StyleProp<ViewStyle>;
+  rowHeaderStyles?: StyleProp<ViewStyle>;
+  cellStyles?: StyleProp<ViewStyle>;
+  cornerCellStyles: StyleProp<ViewStyle>;
 };
 
 export default function StickyTable<TCell, TColumn, TRow>({
@@ -39,6 +43,10 @@ export default function StickyTable<TCell, TColumn, TRow>({
   renderRowHeader,
   renderCell,
   renderCorner,
+  columnHeaderStyles,
+  rowHeaderStyles,
+  cellStyles,
+  cornerCellStyles,
 }: StickyTableProps<TCell, TColumn, TRow>) {
   const scrollX = useSharedValue(0);
   const scrollY = useSharedValue(0);
@@ -73,6 +81,7 @@ export default function StickyTable<TCell, TColumn, TRow>({
           style={[
             styles.cornerCell,
             { width: headerWidth, height: headerHeight },
+            cornerCellStyles,
           ]}
         >
           {renderCorner?.()}
@@ -93,6 +102,7 @@ export default function StickyTable<TCell, TColumn, TRow>({
                 style={[
                   styles.columnHeaderCell,
                   { width: cellWidth, height: headerHeight },
+                  columnHeaderStyles,
                 ]}
               >
                 {renderColumnHeader(column, index)}
@@ -117,6 +127,7 @@ export default function StickyTable<TCell, TColumn, TRow>({
                 style={[
                   styles.rowHeaderCell,
                   { width: headerWidth, height: cellHeight },
+                  rowHeaderStyles,
                 ]}
               >
                 {renderRowHeader(row, index)}
@@ -139,6 +150,7 @@ export default function StickyTable<TCell, TColumn, TRow>({
                     style={[
                       styles.cell,
                       { width: cellWidth, height: cellHeight },
+                      cellStyles,
                     ]}
                   >
                     {renderCell(cell, rowIndex, index)}
@@ -154,7 +166,6 @@ export default function StickyTable<TCell, TColumn, TRow>({
 }
 
 const headerBackgroundColor = '#34495e';
-const headerBorderColor = '#2c3e50';
 
 const styles = StyleSheet.create({
   container: {
@@ -171,7 +182,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   cornerCell: {
-    backgroundColor: headerBorderColor,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -183,24 +193,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   columnHeaderCell: {
-    backgroundColor: headerBackgroundColor,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRightWidth: 1,
-    borderColor: headerBorderColor,
   },
   rowHeaderCell: {
-    backgroundColor: headerBackgroundColor,
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderColor: headerBorderColor,
   },
   cell: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderRightWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: '#888',
   },
 });
