@@ -159,5 +159,9 @@
       "eslint"
     ],
     "version": "0.62.0"
+  },
+  "dependencies": {
+    "react-native-reanimated": "^4.4.0",
+    "react-native-worklets": "^0.9.1"
   }
 }
