@@ -165,20 +165,15 @@ export default function StickyTable<TCell, TColumn, TRow>({
   );
 }
 
-const headerBackgroundColor = '#34495e';
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   columnHeaderClip: {
-    backgroundColor: headerBackgroundColor,
     overflow: 'hidden',
     flex: 1,
   },
   rowHeaderClip: {
-    backgroundColor: headerBackgroundColor,
     overflow: 'hidden',
   },
   cornerCell: {

@@ -1,4 +1,5 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import StickyTable from 'react-native-dual-sticky-table';
 
 const DATES = [
@@ -77,35 +78,37 @@ const DATA = SPORTS.map((sport, i) =>
 
 export default function StickyTableExample() {
   return (
-    <View style={exampleStyles.container}>
-      <StickyTable
-        columnHeaders={DATES}
-        rowHeaders={SPORTS}
-        data={DATA}
-        cellWidth={70}
-        cellHeight={50}
-        headerWidth={90}
-        headerHeight={50}
-        renderColumnHeader={(date) => (
-          <Text style={exampleStyles.headerText}>{date}</Text>
-        )}
-        renderRowHeader={(sport) => (
-          <Text style={exampleStyles.headerText}>{sport}</Text>
-        )}
-        renderCell={(value) => (
-          <Text style={exampleStyles.cellText}>{value}</Text>
-        )}
-        columnHeaderStyles={exampleStyles.columnHeaderCell}
-        rowHeaderStyles={exampleStyles.rowHeaderCell}
-        cellStyles={exampleStyles.cell}
-        cornerCellStyles={exampleStyles.cornerCell}
-      />
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView style={exampleStyles.container}>
+        <StickyTable
+          columnHeaders={DATES}
+          rowHeaders={SPORTS}
+          data={DATA}
+          cellWidth={70}
+          cellHeight={48}
+          headerWidth={90}
+          headerHeight={50}
+          renderColumnHeader={(date) => (
+            <Text style={exampleStyles.headerText}>{date}</Text>
+          )}
+          renderRowHeader={(sport) => (
+            <Text style={exampleStyles.headerText}>{sport}</Text>
+          )}
+          renderCell={(value) => (
+            <Text style={exampleStyles.cellText}>{value}</Text>
+          )}
+          columnHeaderStyles={exampleStyles.columnHeaderCell}
+          rowHeaderStyles={exampleStyles.rowHeaderCell}
+          cellStyles={exampleStyles.cell}
+          cornerCellStyles={exampleStyles.cornerCell}
+        />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
-const headerBackgroundColor = '#34495e';
-const headerBorderColor = '#2c3e50';
+const headerBackgroundColor = '#415a77';
+const headerBorderColor = '#34495e';
 
 const exampleStyles = StyleSheet.create({
   container: {
