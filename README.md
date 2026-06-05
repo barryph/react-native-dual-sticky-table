@@ -8,7 +8,7 @@ A React Native component for rendering tables with both a sticky column header (
 
 ## Demo
 
-![Dual Sticky Table](./assets/StickyTableDemo.mp4)
+https://github.com/user-attachments/assets/a9d92bac-8ef1-4995-9fdb-ddc5ab903f6b
 
 
 
