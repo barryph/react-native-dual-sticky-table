@@ -28,7 +28,7 @@ type StickyTableProps<TCell, TColumn, TRow> = {
   columnHeaderStyles?: StyleProp<ViewStyle>;
   rowHeaderStyles?: StyleProp<ViewStyle>;
   cellStyles?: StyleProp<ViewStyle>;
-  cornerCellStyles: StyleProp<ViewStyle>;
+  cornerCellStyles?: StyleProp<ViewStyle>;
 };
 
 export default function StickyTable<TCell, TColumn, TRow>({
