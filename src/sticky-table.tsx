@@ -17,6 +17,8 @@ type StickyTableProps<TCell, TColumn, TRow> = {
   cellHeight: number;
   headerWidth: number;
   headerHeight: number;
+  tableVerticalPadding?: number;
+  tableHorizontalPadding?: number;
   renderColumnHeader: (column: TColumn, index: number) => React.ReactNode;
   renderRowHeader: (row: TRow, index: number) => React.ReactNode;
   renderCell: (
@@ -39,6 +41,8 @@ export default function StickyTable<TCell, TColumn, TRow>({
   cellHeight,
   headerWidth,
   headerHeight,
+  tableVerticalPadding = 0,
+  tableHorizontalPadding = 0,
   renderColumnHeader,
   renderRowHeader,
   renderCell,
@@ -73,6 +77,91 @@ export default function StickyTable<TCell, TColumn, TRow>({
     scrollTo(rowHeaderRef, 0, scrollY.value, false);
   });
 
+  /**
+   * The following compute...Styles functions are all to add tableHorizontalPadding
+   * & tableVerticalPadding support
+   */
+
+  function computeColumnHeaderStyles(
+    columnIndex: number,
+    columnsLength: number
+  ) {
+    const styles: Record<string, any> = {};
+    const isInFirstColumn = columnIndex === 0;
+    const isInLastColumn = columnIndex === columnsLength;
+    if (isInFirstColumn) {
+      styles.paddingLeft = tableHorizontalPadding;
+    }
+    if (isInLastColumn) {
+      styles.paddingRight = tableHorizontalPadding;
+    }
+
+    styles.width = cellWidth;
+    styles.height = headerHeight;
+    if (isInFirstColumn || isInLastColumn) {
+      styles.width += tableHorizontalPadding;
+    }
+
+    return styles;
+  }
+
+  function computeRowHeaderStyles(rowIndex: number, rowsLength: number) {
+    const styles: Record<string, any> = {};
+    const isInFirstRow = rowIndex === 0;
+    const isInLastRow = rowIndex === rowsLength;
+    if (isInFirstRow) {
+      styles.paddingTop = tableVerticalPadding;
+    }
+    if (isInLastRow) {
+      styles.paddingBottom = tableVerticalPadding;
+    }
+
+    styles.width = headerWidth;
+    styles.height = cellHeight;
+    if (isInFirstRow || isInLastRow) {
+      styles.height += tableVerticalPadding;
+    }
+
+    return styles;
+  }
+
+  function computeCellStyles(
+    rowIndex: number,
+    columnIndex: number,
+    rowsLength: number,
+    columnsLength: number
+  ) {
+    const styles: Record<string, any> = {};
+    const isInFirstRow = rowIndex === 0;
+    const isInLastRow = rowIndex === rowsLength;
+    const isInFirstColumn = columnIndex === 0;
+    const isInLastColumn = columnIndex === columnsLength;
+
+    if (isInFirstRow) {
+      styles.paddingTop = tableVerticalPadding;
+    }
+    if (isInLastRow) {
+      styles.paddingBottom = tableVerticalPadding;
+    }
+    if (isInFirstColumn) {
+      styles.paddingLeft = tableHorizontalPadding;
+    }
+    if (isInLastColumn) {
+      styles.paddingRight = tableHorizontalPadding;
+    }
+
+    styles.width = cellWidth;
+    styles.height = cellHeight;
+    if (isInFirstRow || isInLastRow) {
+      styles.height += tableVerticalPadding;
+    }
+    if (isInFirstColumn || isInLastColumn) {
+      styles.width += tableHorizontalPadding;
+    }
+
+    return styles;
+  }
+
   return (
     <View style={styles.container}>
       {/* Top row: corner + horizontal sticky header */}
@@ -101,7 +190,7 @@ export default function StickyTable<TCell, TColumn, TRow>({
                 key={index}
                 style={[
                   styles.columnHeaderCell,
-                  { width: cellWidth, height: headerHeight },
+                  computeColumnHeaderStyles(index, columnHeaders.length - 1),
                   columnHeaderStyles,
                 ]}
               >
@@ -126,7 +215,7 @@ export default function StickyTable<TCell, TColumn, TRow>({
                 key={index}
                 style={[
                   styles.rowHeaderCell,
-                  { width: headerWidth, height: cellHeight },
+                  computeRowHeaderStyles(index, rowHeaders.length - 1),
                   rowHeaderStyles,
                 ]}
               >
@@ -149,7 +238,12 @@ export default function StickyTable<TCell, TColumn, TRow>({
                     key={index}
                     style={[
                       styles.cell,
-                      { width: cellWidth, height: cellHeight },
+                      computeCellStyles(
+                        rowIndex,
+                        index,
+                        data.length - 1,
+                        row.length - 1
+                      ),
                       cellStyles,
                     ]}
                   >

@@ -76,6 +76,8 @@ All cells share the same dimensions - flexible per-cell sizing is not supported.
 | `cellHeight` | `number` | ✅ | Height of every data cell and row header cell. P.S. On Android certain combinations of cellHeight and border widths caused unexpected gaps between row headers. If you run in to this, try adjusting cellHeight or it's padding. |
 | `headerWidth` | `number` | ✅ | Width of the sticky left column (row headers and the corner cell). |
 | `headerHeight` | `number` | ✅ | Height of the sticky top row (column headers and the corner cell). |
+| `tableVerticalPadding` | `number` | - | Extra padding added to the first and last rows. Defaults to `0`. |
+| `tableHorizontalPadding` | `number` | - | Extra padding added to the first and last columns. Defaults to `0`. |
 
 ### Render Functions
 
