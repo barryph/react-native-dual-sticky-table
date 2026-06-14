@@ -19,7 +19,6 @@ npm install react-native-dual-sticky-table
 ```
 
 
-
 ## Usage
 
 
